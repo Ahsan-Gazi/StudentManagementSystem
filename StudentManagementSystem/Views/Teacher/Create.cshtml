@@ -1,0 +1,36 @@
+﻿@model TeacherDepViewModel
+@{ 
+    ViewBag.Title = "Teacher Creation";
+}
+<div class="row">
+    <div class="col-md-8">
+        <h2>Create teacher</h2>
+        <form asp-controller="Teacher" asp-action="Create" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label>Name</label>
+                <input asp-for="TeacherName" class="form-control" />
+                <span asp-validation-for="TeacherName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Department</label>
+                <select asp-for="DepartmentId" asp-items="@ViewBag.ListOfDepartment" class="form-control">
+                    <option value="">Select Department</option>
+                </select>
+                <span asp-validation-for="TeacherName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Image</label>
+                <input type="file" asp-for="TUrlImage" class="form-control" />
+                <span asp-validation-for="TUrlImage" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Add Teacher" class="btn btn-primary" style="width:auto"/>
+            </div>
+        </form>
+    </div>
+</div>

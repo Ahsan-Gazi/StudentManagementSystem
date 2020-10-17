@@ -1,0 +1,38 @@
+﻿@model StudentManagementSystem.Models.Teacher
+@{ 
+    ViewBag.Title = "Details";
+}
+<div>
+    <dl>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TeacherId)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TeacherId)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TeacherName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TeacherName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TUrlImage)
+        </dt>
+        <dd class="col-sm-10">
+            <img src="~/Image/@Model.TUrlImage" height="70" width="70" alt="TImageView" />
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Department)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Department)
+        </dd>
+    </dl>
+</div>

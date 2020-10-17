@@ -1,0 +1,56 @@
+﻿@model Student
+@{
+    ViewBag.Title = "Student Edition";
+}
+<div class="row">
+    <div class="col-md-8">
+        <h2>Update Student</h2>
+        <form asp-controller="Student" asp-action="Edit" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label>Name</label>
+                <input asp-for="StudentName" class="form-control" />
+                <span asp-validation-for="StudentName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Gender</label>
+                <input asp-for="Gender" class="form-control" />
+                <span asp-validation-for="Gender" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Semester</label>
+                <select asp-for="SemesterId" asp-items="@ViewBag.ListOfSemester" class="form-control">
+                    <option value="">Select Semester</option>
+                </select>
+                <span asp-validation-for="SemesterId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <img src="~/Image/" width="80" height="80" class="change_edit"/>
+                <label>Image</label>
+                <input type="file" asp-for="UrlImage" class="form-control changeImage" />
+                <span asp-validation-for="UrlImage" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Update Student" class="btn btn-primary" style="width:auto" />
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    $(function () {
+        $('.changeImage').change(function () {
+            var input = this;
+            var url = $(this).val();
+            var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
+            if (input.files && input.files[0] && (ext == "Jpg" || ext == "png" || ext == "jpeg" || ext == "jpg")) {
+                var reader = new FileReader();
+                reader.onload = function () {
+                    $('.change_edit').attr('src', e.target.result)
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+            else {
+                $('.change_edit').attr('src', '/Image/@Model.UrlImage')
+            }
+        })
+    });
+</script>

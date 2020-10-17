@@ -1,0 +1,103 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@inject SignInManager<ApplicationUser> signInManager;
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+
+    <link href="~/lib/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <script src="~/lib/jquery/jquery.js"></script>
+    <script src="~/lib/jquery-validate/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.js"></script>
+    <link href="~/css/Site.css" rel="stylesheet" />
+    <link href="~/Content/css/SiteCategory.css" rel="stylesheet" />
+    <script src="~/lib/fontawesome-iconpicker/js/fontawesome-iconpicker.js"></script>
+
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <div class="container" style="width:auto">
+        <nav class="navbar navbar-expand-sm bg-dark navbar-gray-dark" style="width:auto" >
+            <a class="navbar-brand" asp-controller="Home" asp-action="Index">
+                Home
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#collapsibleNavbar"><span class="navbar-toggler-icon"></span>
+
+            </button>
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Student" asp-action="Index">Student List</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Student" asp-action="Create">Add Student</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Semester" asp-action="Index">Add Semester</a>
+                    </li>
+                </ul>
+
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Teacher" asp-action="Index">Teacher List</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Teacher" asp-action="Create">Add Teacher</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Department" asp-action="Index">Add Department</a>
+                    </li>
+
+                </ul>
+                <ul class="navbar-nav">
+                    @*@if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))*@
+                    @if(signInManager.IsSignedIn(User))
+                    {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Manage</a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" asp-controller="Operation" asp-action="ListOfRoles">Roles</a>
+                                <a class="dropdown-item" asp-controller="Operation" asp-action="ListOfUsers">Users</a>
+                            </div>
+                        </li>
+                    }
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    @if (signInManager.IsSignedIn(User))
+                    {
+                        <li class="nav-item">
+                            <form method="post" asp-action="Logout" asp-controller="Account" style="width:auto">
+                                <button type="submit" class="nav-link btn btn-link py-0" style="width:auto">
+                                    Logout @User.Identity.Name
+                                </button>
+                            </form>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Account" asp-action="Register">Register</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Account" asp-action="Login">Login</a>
+                        </li>
+                    }
+
+                </ul>
+            </div>
+            
+        </nav>
+        
+        @RenderBody()
+    </div>
+    @if (IsSectionDefined("Scripts"))
+    {
+        @RenderSection("Scripts",required:true)
+    }
+</body>
+</html>
